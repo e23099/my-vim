@@ -23,6 +23,8 @@ set shiftwidth=4
 set expandtab
 set si
 set wrap
+syntax on
+
 
 " Status line
 set laststatus=2
