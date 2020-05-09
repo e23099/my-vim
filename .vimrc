@@ -11,6 +11,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'itchyny/lightline.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'crusoexia/vim-monokai'
+Plugin 'chrisbra/colorizer'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -24,6 +25,19 @@ set expandtab
 set si
 set wrap
 syntax on
+set mouse=a
+
+"smart mapping for tab completion
+function InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction 
+
+inoremap <TAB> <C-R>=InsertTabWrapper()<CR>
 
 
 " Status line
@@ -43,3 +57,7 @@ let g:lightline = {
 
 " setting for monokai
 colorscheme monokai
+
+" setting for Colorizer
+map <leader>ch : ColorHighlight <cr>
+map <leader>chc: ColorClear <cr>
