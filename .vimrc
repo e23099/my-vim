@@ -1,7 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-set rtp+=C:/tools/vim/bundle/Vundle.vim
-" set rtp+=~/.vim/bundle/Vundle.vim
+" set rtp+=C:/tools/vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " required
 Plugin 'tpope/vim-fugitive'
@@ -14,8 +14,11 @@ Plugin 'mattn/emmet-vim'
 Plugin 'crusoexia/vim-monokai'
 Plugin 'chrisbra/colorizer'
 Plugin 'mechatroner/rainbow_csv'
-Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
-call vundle#end()            " required
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'tmsvg/pear-tree'
+Plugin 'aklt/plantuml-syntax'
+all vundle#end()            " required
 filetype plugin indent on    " required
 
 set nu
@@ -27,6 +30,8 @@ set expandtab
 autocmd FileType html,jinja setlocal shiftwidth=2 tabstop=2
 set si
 set wrap
+set background=dark " for tmux
+set t_Co=256 " for tmux
 
 syntax on
 set mouse=a
@@ -82,17 +87,3 @@ colorscheme monokai
 " setting for Colorizer
 map <leader>ch : ColorHighlight <cr>
 map <leader>chc: ColorClear <cr>
-
-" setting for instant-markdown
-filetype plugin on
-    "Uncomment to override defaults:
-    "let g:instant_markdown_slow = 1
-    let g:instant_markdown_autostart = 0
-    "let g:instant_markdown_open_to_the_world = 1
-    "let g:instant_markdown_allow_unsafe_content = 1
-    "let g:instant_markdown_allow_external_content = 0
-    "let g:instant_markdown_mathjax = 1
-    "let g:instant_markdown_logfile = '/tmp/instant_markdown.log'
-    "let g:instant_markdown_autoscroll = 0
-    "let g:instant_markdown_port = 8888
-"let g:instant_markdown_python = 1
