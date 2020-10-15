@@ -18,7 +18,7 @@ Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tmsvg/pear-tree'
 Plugin 'aklt/plantuml-syntax'
-all vundle#end()            " required
+call vundle#end()            " required
 filetype plugin indent on    " required
 
 set nu
@@ -27,7 +27,7 @@ set smarttab
 set tabstop=4
 set shiftwidth=4
 set expandtab
-autocmd FileType html,jinja setlocal shiftwidth=2 tabstop=2
+autocmd FileType html,jinja,java setlocal shiftwidth=2 tabstop=2
 set si
 set wrap
 set background=dark " for tmux
