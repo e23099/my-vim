@@ -24,3 +24,12 @@ Open up .vimrc with vim, and type:
 ```
 
 And that's it.
+
+### Encoding Problem
+
+This `_vimrc` is written in windows, so if you are using it in an unix environment, you may encounter the "carat M" problem.
+To solve it, vim into the `_vimrc` file, and do:
+```
+:w ++ff=unix
+```
+to deal with those carat M.
