@@ -23,6 +23,7 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 set nu
+set cursorline
 set foldmethod=manual
 set smarttab
 set tabstop=4
@@ -31,6 +32,7 @@ set expandtab
 autocmd FileType html,jinja,java setlocal shiftwidth=2 tabstop=2
 set si
 set wrap
+set visualbell
 
 syntax on
 set mouse=a
@@ -44,6 +46,11 @@ if has('gui_running')
     set guifont=Fira\ Code:h12
     "set guifontwide=Microsoft\ JhengHei
 endif
+
+" for cursor shape on windows terminal
+let &t_SI.="\e[5 q"
+let &t_SR.="\e[4 q"
+let &t_EI.="\e[1 q"
 
 " for tmux to display the same color
 set background=dark
