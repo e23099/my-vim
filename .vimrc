@@ -13,11 +13,11 @@ Plugin 'crusoexia/vim-monokai'
 Plugin 'chrisbra/colorizer'
 Plugin 'mechatroner/rainbow_csv'
 Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
 Plugin 'tmsvg/pear-tree'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'puremourning/vimspector'
 Plugin 'szw/vim-maximizer'
+Plugin 'preservim/tagbar'
 Plugin 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -32,7 +32,8 @@ set expandtab
 autocmd FileType html,jinja,java setlocal shiftwidth=2 tabstop=2
 set si
 set wrap
-set visualbell
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
 
 syntax on
 set mouse=a
@@ -138,3 +139,6 @@ nnoremap <leader>dv :call GoToWindow(g:vimspector_session_windows.variables)<cr>
 nnoremap <leader>dw :call GoToWindow(g:vimspector_session_windows.watches)<cr>
 nnoremap <leader>ds :call GoToWindow(g:vimspector_session_windows.stack_trace)<cr>
 nnoremap <leader>do :call GoToWindow(g:vimspector_session_windows.output)<cr>
+
+" Tagbar
+nmap <F12> :TagbarToggle<CR>
