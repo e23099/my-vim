@@ -28,8 +28,7 @@ set smarttab
 set tabstop=4
 set shiftwidth=4
 set expandtab
-autocmd FileType html,jinja,java setlocal shiftwidth=2 tabstop=2
-set si
+autocmd FileType html,jinja,java setlocal shiftwidth=2 tabstop=2 set si
 set wrap
 
 syntax on

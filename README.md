@@ -2,6 +2,28 @@
 
 My vim config for setting up new environment.
 
+## Dependency
+
+For `vimspector` to work, vim version should be 8.2 or higher.
+
+For debian user, downloading vim8.2 may need install from testing repository:
+
+(see this stack_exchange [post](https://serverfault.com/questions/550855/how-to-add-debian-testing-repository-to-apt-get))
+
+```
+sudo vim /etc/apt/sources.list
+```
+to add this line into the sources list:
+```
+deb http://http.us.debian.org/debian/ testing non-free contrib main
+```
+save it, and run
+```
+sudo apt-get update
+```
+Finally, remove vim and reinstall it, it should be of ver.8.2.
+
+
 
 ## Installation
 
@@ -33,3 +55,29 @@ To solve it, vim into the `_vimrc` file, and do:
 :w ++ff=unix
 ```
 to deal with those carat M.
+
+## java debuggin with coc
+
+First, 
+```
+:CocInstall coc-java
+```
+to install coc-java support.
+
+Secondly, use 
+```
+:CocConfig
+```
+to open up config for coc, then put the path of your **JDK** like:
+
+```
+{
+    "java.home": "path/to/jdk"
+}
+```
+
+To see where is your jdk on Debain:
+```
+update-alternatives --list java
+```
+
