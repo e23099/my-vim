@@ -13,6 +13,7 @@ Plugin 'crusoexia/vim-monokai'
 Plugin 'chrisbra/colorizer'
 Plugin 'mechatroner/rainbow_csv'
 Plugin 'junegunn/fzf'
+Plugin 'rking/ag.vim'
 Plugin 'tmsvg/pear-tree'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'puremourning/vimspector'
@@ -29,7 +30,7 @@ set smarttab
 set tabstop=4
 set shiftwidth=4
 set expandtab
-autocmd FileType html,jinja,java setlocal shiftwidth=2 tabstop=2
+autocmd FileType html,jinja setlocal shiftwidth=2 tabstop=2
 set si
 set wrap
 set noerrorbells visualbell t_vb=
@@ -37,6 +38,7 @@ autocmd GUIEnter * set visualbell t_vb=
 
 syntax on
 set mouse=a
+set ttymouse=xterm2 " for dragging window
 " windows setting
 set encoding=utf-8
 set nobackup
@@ -115,16 +117,37 @@ function! s:check_back_space() abort
 endfunction
 
 inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<Tab>" :
+  \ coc#refresh()
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+"" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+"" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+"" popup color
+highlight CocErrorFloat ctermfg=Red 
 
 " vimspector
 noremap <F4> :VimspectorReset<cr>
 let g:vimspector_enable_mappings='VISUAL_STUDIO'
 nmap <F8> <Plug>VimspectorToggleConditionalBreakpoint
+nnoremap <leader>dj :CocCommand java.debug.vimspector.start<cr>
 
 " maximizer
 function GoToWindow(id)
