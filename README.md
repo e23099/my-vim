@@ -56,7 +56,7 @@ To solve it, vim into the `_vimrc` file, and do:
 ```
 to deal with those carat M.
 
-## java debuggin with coc
+## java syntax support with coc
 
 First, 
 ```
@@ -81,3 +81,23 @@ To see where is your jdk on Debain:
 update-alternatives --list java
 ```
 
+## debugging with vimspector
+
+### Global settings
+
+Copy `vimspector-configurations` to bundle path.
+```
+cp -r vimspector-configurations ~/.vim/bundle/vimspector/configurations/<your_machine_os_name, ex:linux>/
+```
+
+### installation
+
+Open up vim and
+```
+:VimspectorInstall dubugpy vscode-cpptools vscode-java-debug
+```
+for debugging python, cpp/c, and java codes.
+
+cpp/c requires gdb installed on the machine, with it's path (ex: /usr/bin/gdb) set inside the global settings json file `vimspector/configurations/<os_name>/cpp/cpp.json`.
+
+Java debugging is not properly configured yet, so it's not recommended using vimspector to debug java codes for now.

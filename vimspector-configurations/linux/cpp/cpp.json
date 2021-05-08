@@ -1,0 +1,23 @@
+{
+  "configurations": {
+    "cpp:launch": {
+      "adapter": "vscode-cpptools",
+      "configuration": {
+        "name": "cpp",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${fileDirname}/a.out",
+        "args": ["*${ProgramArgs}"],
+        "cwd": "${workspaceRoot}",
+        "environment": [],
+        "externalConsole": false,
+        "stopAtEntry": true,
+        "MIMode": "gdb",
+        "miDebuggerPath": "/usr/bin/gdb",
+        "logging": {
+          "engineLogging": false
+        }
+      }
+    }
+  }
+}
