@@ -5,7 +5,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " required
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
-Plugin 'glench/vim-jinja2-syntax'
+Plugin 'lepture/vim-jinja'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'itchyny/lightline.vim'
 Plugin 'mattn/emmet-vim'
@@ -19,9 +19,14 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'puremourning/vimspector'
 Plugin 'szw/vim-maximizer'
 Plugin 'preservim/tagbar'
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-glaive'
+Plugin 'MaxMEllon/vim-jsx-pretty'
 Plugin 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 call vundle#end()            " required
 filetype plugin indent on    " required
+call glaive#Install()        " google formatting
 
 set nu
 set cursorline
@@ -30,7 +35,7 @@ set smarttab
 set tabstop=4
 set shiftwidth=4
 set expandtab
-autocmd FileType html,jinja setlocal shiftwidth=2 tabstop=2
+autocmd FileType html,jinja,cc,cpp,hpp,js setlocal shiftwidth=2 tabstop=2
 set si
 set wrap
 set noerrorbells visualbell t_vb=
@@ -70,15 +75,31 @@ set t_Co=256
 "endfunction 
 "
 "inoremap <TAB> <C-R>=InsertTabWrapper()<CR>
-
+inoremap <C-PageUp> :bp<CR>
+inoremap <C-PageDown> :bn<CR>
 
 " Status line
 set laststatus=2
 
 let mapleader=" "
 
+" Copy to Clipboard
+function CopyToClipboard()
+    execute '! cat ' . expand('%:p') . ' | clip.exe'
+endfunction
+
+map<leader>cc :call CopyToClipboard()<cr><cr>
+
 " setting for NERDTree
-map <leader>nn : NERDTreeToggle <cr>
+map <leader>nn :tabdo NERDTreeMirror <Bar> NERDTreeFocus <Bar> wincmd p <cr>
+map <leader>nc :tabdo NERDTreeClose <cr>
+"" Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+"" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+"" Open the existing NERDTree on each new tab.
+"autocmd BufWinEnter * silent NERDTreeMirror
 
 " setting for lightline
 set noshowmode
@@ -165,3 +186,20 @@ nnoremap <leader>do :call GoToWindow(g:vimspector_session_windows.output)<cr>
 
 " Tagbar
 nmap <F12> :TagbarToggle<CR>
+augroup autoformat_settings
+  "autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,arduino AutoFormatBuffer clang-format
+  " autocmd FileType dart AutoFormatBuffer dartfmt
+  " autocmd FileType go AutoFormatBuffer gofmt
+  " autocmd FileType gn AutoFormatBuffer gn
+  " autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
+  " autocmd FileType java AutoFormatBuffer google-java-format
+  " autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  " autocmd FileType rust AutoFormatBuffer rustfmt
+  " autocmd FileType vue AutoFormatBuffer prettier
+augroup END
+
+" Emmet
+" let g:user_emmet_expandabbr_key = '<tab>'
+
