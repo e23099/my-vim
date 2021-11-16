@@ -8,28 +8,33 @@ if has('gui_running')
     set rtp+=C:/tools/vim/bundle/Vundle.vim
     "set guifontwide=Microsoft\ JhengHei
 endif
+" polyglot
+let g:polyglot_disabled = ['csv']
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " required
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'itchyny/lightline.vim'
-Plugin 'mattn/emmet-vim'
 Plugin 'crusoexia/vim-monokai'
-Plugin 'chrisbra/colorizer'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'mechatroner/rainbow_csv'
-Plugin 'lepture/vim-jinja'
+Plugin 'chrisbra/colorizer'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
-Plugin 'tmsvg/pear-tree'
+Plugin 'tmsvg/pear-tree' " complete brackets
 Plugin 'preservim/tagbar'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'puremourning/vimspector'
 Plugin 'szw/vim-maximizer'
 Plugin 'neoclide/coc.nvim' " after install/update, manually execute `:call coc#util#install()`
+" for flask development
+Plugin 'lepture/vim-jinja'
+Plugin 'mattn/emmet-vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 set nu
+set cursorline
 set foldmethod=manual
 set smarttab
 set tabstop=4
@@ -90,15 +95,13 @@ endfunction
 " setting for monokai
 colorscheme monokai
 
+
 " setting for Colorizer
 map <leader>ch : ColorHighlight <cr>
 map <leader>cc : ColorClear <cr>
 
 " pear-tree
 let g:pear_tree_repeatable_expand = 0
-
-" java complete
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " coc
 "" path to node executable
@@ -137,3 +140,7 @@ nnoremap <leader>do :call GoToWindow(g:vimspector_session_windows.output)<cr>
 
 " Tagbar
 nmap <F12> :TagbarToggle<CR>
+
+" rainbow
+let g:disable_rainbow_hover = 1
+
