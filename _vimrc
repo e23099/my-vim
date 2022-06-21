@@ -25,6 +25,8 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'tmsvg/pear-tree' " complete brackets
 Plugin 'preservim/tagbar'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'Align'
+Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'puremourning/vimspector'
 Plugin 'szw/vim-maximizer'
 Plugin 'neoclide/coc.nvim' " after install/update, manually execute `:call coc#util#install()`
@@ -42,10 +44,11 @@ set shiftwidth=4
 set expandtab
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
-autocmd FileType html,jinja,xml,srp,js setlocal shiftwidth=2 tabstop=2
+autocmd FileType html,jinja,xml,srp,js,dart,cs setlocal shiftwidth=2 tabstop=2
 set si
 set wrap
 syntax on
+set colorcolumn=81
 set mouse=a
 " windows setting
 set encoding=utf-8
@@ -111,13 +114,15 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
-
 inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"" GoTo navigation
+nmap <F12>   :call CocActionAsync('jumpDefinition')<cr>
+nmap <S-F12> <Plug>(coc-references)
 
 " vimspector
 noremap <F4> :VimspectorReset<cr>
@@ -139,8 +144,12 @@ nnoremap <leader>ds :call GoToWindow(g:vimspector_session_windows.stack_trace)<c
 nnoremap <leader>do :call GoToWindow(g:vimspector_session_windows.output)<cr>
 
 " Tagbar
-nmap <F12> :TagbarToggle<CR>
+nmap <leader>nt :TagbarToggle<CR>
 
 " rainbow
 let g:disable_rainbow_hover = 1
 
+
+"omnisharp
+let g:OmniSharp_server_path = 'C:\Users\e2309\AppData\Local\omnisharp-vim\omnisharp-roslyn\OmniSharp.exe'
+let g:OmniSharp_selector_ui = 'fzf'    " Use fzf
